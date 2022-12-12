@@ -32,6 +32,7 @@ const gameBoard = (() => {
         } else {
             currentPlayer = playerUno;
         };
+        console.log(`It is ${currentPlayer.name}'s turn.`);
     }
 
     return {newGameBoard, gameBoardClick}
