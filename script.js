@@ -3,14 +3,39 @@ const cells = document.querySelectorAll(".cell");
 
 // Modules //
 const gameBoard = (() => {
+
+    let playingField = [];
+    for (i = 0; i < 9; i++){
+        playingField.push([""])
+    };
+    
+    let winnerFound = false
+
+    const winConditions = () => {
+        console.log('wincondition check');
+        let combs = [
+            [0,1,2],
+            [3,4,5],
+            [6,7,8],
+            [0,3,6],
+            [1,4,7],
+            [2,5,8],
+            [0,4,8],
+            [2,4,6],
+        ];
+        for (let i = 0; i < combs.length; i++) {
+            console.log(playingField[combs[i][0]], playingField[combs[i][1]], playingField[combs[i][2]]);
+            if (playingField[combs[i][0]] && playingField[combs[i][1]] && playingField[combs[i][2]] === `${currentPlayer.mark}`){
+                winnerFound = true;
+            }
+        };
+        
+    };
         
     const newGameBoard = () => {
-        const playingField = [];
-        for (i = 0; i < 9; i++){
-            playingField.push([""])
-        };
         currentPlayer = playerUno;
-        return {playingField};
+        console.log(playingField)
+        return playingField;
     };
     
     const gameBoardClick = () => {
@@ -21,7 +46,16 @@ const gameBoard = (() => {
                     return;
                 }
                 cell.setAttribute("data-mark", `${currentPlayer.mark}`);
-                swapTurn();
+                playingField[cell.getAttribute("data-cell")] = `${currentPlayer.mark}`;
+                console.log(playingField);
+                winConditions();
+                if (winnerFound === true) {
+                    winnerFound = false
+                    endGame();
+                }
+                else {
+                    swapTurn();
+                }
             });
         });        
     };
@@ -35,7 +69,17 @@ const gameBoard = (() => {
         console.log(`It is ${currentPlayer.name}'s turn.`);
     }
 
-    return {newGameBoard, gameBoardClick}
+    const endGame = () => {
+        alert(`${currentPlayer.name} has won.`)
+        let playingField = [];
+        for (i = 0; i < 9; i++){
+            playingField.push([""])
+        };
+        console.log(playingField)
+        return playingField;
+    };
+
+    return {newGameBoard, gameBoardClick, winConditions}
     
 })();
 
