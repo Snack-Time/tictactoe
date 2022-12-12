@@ -98,6 +98,8 @@ const gameBoard = (() => {
     
 })();
 
+// Buttons //
+
 const newGame = () => {
     gameBoard.newGame();
     gameBoard.gameBoardClick();
@@ -117,4 +119,3 @@ const player = (name, mark, color) => {
 let playerUno = player("Evil Uno", "X", "#2a9d8f");
 let playerDos = player("Stu Grayson", "O", "#f4a261");
 
-// Event Selector //
