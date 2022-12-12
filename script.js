@@ -25,7 +25,9 @@ const gameBoard = (() => {
         ];
         for (let i = 0; i < combs.length; i++) {
             console.log(playingField[combs[i][0]], playingField[combs[i][1]], playingField[combs[i][2]]);
-            if (playingField[combs[i][0]] && playingField[combs[i][1]] && playingField[combs[i][2]] === `${currentPlayer.mark}`){
+            if (playingField[combs[i][0]]  === `${currentPlayer.mark}` && 
+                playingField[combs[i][1]]  === `${currentPlayer.mark}` && 
+                playingField[combs[i][2]] === `${currentPlayer.mark}`){
                 winnerFound = true;
             }
         };
@@ -60,6 +62,12 @@ const gameBoard = (() => {
         });        
     };
 
+    const refreshBoard = () => {
+        cells.forEach(cell => {
+            cell.removeAttribute("data-mark")
+        });
+    };
+    
     const swapTurn = () => {
         if (currentPlayer === playerUno) {
             currentPlayer = playerDos;
@@ -71,11 +79,11 @@ const gameBoard = (() => {
 
     const endGame = () => {
         alert(`${currentPlayer.name} has won.`)
-        let playingField = [];
+        playingField.length = 0;
         for (i = 0; i < 9; i++){
             playingField.push([""])
         };
-        console.log(playingField)
+        refreshBoard();
         return playingField;
     };
 
@@ -90,14 +98,6 @@ const newGame = () => {
 
 const displayController = (() => {
     
-    const refreshBoard = () => {
-        cells.forEach(cell => {
-            cell.removeAttribute("data-mark")
-        });
-    };
-
-
-    return {refreshBoard};
 })();
 
 const newBoard = () => {
