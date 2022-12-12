@@ -1,3 +1,6 @@
+// Query Selectors //
+const cells = document.querySelectorAll(".cell");
+
 // Modules //
 const gameBoard = (() => {
         
@@ -6,20 +9,33 @@ const gameBoard = (() => {
         for (i = 0; i < 9; i++){
             playingField.push([""])
         };
-        console.log(playingField);
+        currentPlayer = playerUno;
         return {playingField};
     };
-
+    
     const gameBoardClick = () => {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
                 console.log("ping");
-                cell.setAttribute("data-mark", "x");
+                if (cell.hasAttribute("data-mark")){
+                    return;
+                }
+                cell.setAttribute("data-mark", `${currentPlayer.mark}`);
+                swapTurn();
             });
         });        
     };
 
+    const swapTurn = () => {
+        if (currentPlayer === playerUno) {
+            currentPlayer = playerDos;
+        } else {
+            currentPlayer = playerUno;
+        };
+    }
+
     return {newGameBoard, gameBoardClick}
+    
 })();
 
 const newGame = () => {
@@ -27,9 +43,21 @@ const newGame = () => {
     gameBoard.gameBoardClick();
 };
 
-const displayController = () => {
+const displayController = (() => {
+    
+    const refreshBoard = () => {
+        cells.forEach(cell => {
+            cell.removeAttribute("data-mark")
+        });
+    };
 
-}
+
+    return {refreshBoard};
+})();
+
+const newBoard = () => {
+    displayController.refreshBoard();
+};
 
 // Factories //
 
@@ -38,13 +66,8 @@ const player = (name, mark) => {
     return {name, mark};
 }
 
-
-
-const playerUno = player("Uno", "X");
-const playerDos = player("Stu", "O");
-
-// Query Selectors //
-const cells = document.querySelectorAll(".cell");
-console.log(cells);
+let playerUno = player("Evil Uno", "X");
+let playerDos = player("Stu Grayson", "O");
+let currentPlayer = player("", "");
 
 // Event Selector //
