@@ -1,14 +1,31 @@
 // Modules //
-const gameBoard = () => {
-    
-    const playingField = [];
-    for (i = 0; i < 9; i++){
-        playingField.push([""])
+const gameBoard = (() => {
+        
+    const newGameBoard = () => {
+        const playingField = [];
+        for (i = 0; i < 9; i++){
+            playingField.push([""])
+        };
+        console.log(playingField);
+        return {playingField};
     };
-    console.log(playingField);
-    return {playingField};
 
-}
+    const gameBoardClick = () => {
+        cells.forEach(cell => {
+            cell.addEventListener('click', () => {
+                console.log("ping");
+                cell.setAttribute("data-mark", "x");
+            });
+        });        
+    };
+
+    return {newGameBoard, gameBoardClick}
+})();
+
+const newGame = () => {
+    gameBoard.newGameBoard();
+    gameBoard.gameBoardClick();
+};
 
 const displayController = () => {
 
@@ -21,10 +38,13 @@ const player = (name, mark) => {
     return {name, mark};
 }
 
+
+
 const playerUno = player("Uno", "X");
 const playerDos = player("Stu", "O");
 
 // Query Selectors //
 const cells = document.querySelectorAll(".cell");
+console.log(cells);
 
 // Event Selector //
