@@ -9,7 +9,8 @@ const gameBoard = (() => {
         playingField.push([""])
     };
     
-    let winnerFound = false
+    let winnerFound = false;
+    let tieCounter = 0;
 
     const winConditions = () => {
         console.log('wincondition check');
@@ -34,9 +35,8 @@ const gameBoard = (() => {
         
     };
         
-    const newGameBoard = () => {
+    const newGame = () => {
         currentPlayer = playerUno;
-        console.log(playingField)
         return playingField;
     };
     
@@ -48,11 +48,16 @@ const gameBoard = (() => {
                     return;
                 }
                 cell.setAttribute("data-mark", `${currentPlayer.mark}`);
+                cell.setAttribute("style", `background-color: ${currentPlayer.color}`)
                 playingField[cell.getAttribute("data-cell")] = `${currentPlayer.mark}`;
-                console.log(playingField);
+                tieCounter++
                 winConditions();
                 if (winnerFound === true) {
-                    winnerFound = false
+                    alert(`${currentPlayer.name} has won!`);
+                    endGame();
+                }
+                else if (tieCounter === 9){
+                    alert("Tie game!");
                     endGame();
                 }
                 else {
@@ -60,12 +65,6 @@ const gameBoard = (() => {
                 }
             });
         });        
-    };
-
-    const refreshBoard = () => {
-        cells.forEach(cell => {
-            cell.removeAttribute("data-mark")
-        });
     };
     
     const swapTurn = () => {
@@ -78,41 +77,44 @@ const gameBoard = (() => {
     }
 
     const endGame = () => {
-        alert(`${currentPlayer.name} has won.`)
+        winnerFound = false;
+        tieCounter = 0;
         playingField.length = 0;
         for (i = 0; i < 9; i++){
             playingField.push([""])
-        };
-        refreshBoard();
+        };;
         return playingField;
     };
 
-    return {newGameBoard, gameBoardClick, winConditions}
+    const refreshBoard = () => {
+        cells.forEach(cell => {
+            cell.removeAttribute("data-mark");
+            cell.removeAttribute("style");
+        });
+        currentPlayer = playerUno;
+    };
+
+    return {newGame, gameBoardClick, winConditions, refreshBoard}
     
 })();
 
 const newGame = () => {
-    gameBoard.newGameBoard();
+    gameBoard.newGame();
     gameBoard.gameBoardClick();
 };
 
-const displayController = (() => {
-    
-})();
-
 const newBoard = () => {
-    displayController.refreshBoard();
+    gameBoard.refreshBoard();
 };
 
 // Factories //
 
-const player = (name, mark) => {
+const player = (name, mark, color) => {
     console.log(`${name} is playing with ${mark}'s!`);
-    return {name, mark};
+    return {name, mark, color};
 }
 
-let playerUno = player("Evil Uno", "X");
-let playerDos = player("Stu Grayson", "O");
-let currentPlayer = player("", "");
+let playerUno = player("Evil Uno", "X", "#2a9d8f");
+let playerDos = player("Stu Grayson", "O", "#f4a261");
 
 // Event Selector //
