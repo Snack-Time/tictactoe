@@ -1,4 +1,25 @@
-.walter {
-    color:red;
-    font-family: sans-serif;
+:root {
+    --colorOne: #264653;
+    --colorTwo: #2a9d8f;
+    --colorThree: #e9c46a;
+    --colorFour: #f4a261;
+    --colorFive: #e76f51;
+}
+
+.container {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+.playGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+
+}
+
+.cell {
+    background-color: whitesmoke;
+    border: 5px solid black;
 }
