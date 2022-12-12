@@ -1,5 +1,12 @@
 // Modules //
 const gameBoard = () => {
+    
+    const playingField = [];
+    for (i = 0; i < 9; i++){
+        playingField.push([""])
+    };
+    console.log(playingField);
+    return {playingField};
 
 }
 
@@ -9,12 +16,15 @@ const displayController = () => {
 
 // Factories //
 
-const players = (name, xo) => {
-    console.log(`${name} is playing with ${xo}'s!`);
-    return {name, xo};
+const player = (name, mark) => {
+    console.log(`${name} is playing with ${mark}'s!`);
+    return {name, mark};
 }
 
-jeff = players('jeff', 'X');
-mark = players('mark', 'O');
+const playerUno = player("Uno", "X");
+const playerDos = player("Stu", "O");
 
 // Query Selectors //
+const cells = document.querySelectorAll(".cell");
+
+// Event Selector //

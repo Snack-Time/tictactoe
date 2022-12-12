@@ -6,20 +6,28 @@
     --colorFive: #e76f51;
 }
 
+body {
+    background-color: var(--colorThree);
+}
+
 .container {
     display: grid;
     align-items: center;
     justify-content: center;
+    justify-items: center;
 }
 
 .playGrid {
     display: grid;
     grid-template-columns: repeat(3, 100px);
     grid-template-rows: repeat(3, 100px);
-
 }
 
 .cell {
-    background-color: whitesmoke;
+    background-color: var(--colorThree);
     border: 5px solid black;
+}
+
+.cell:hover {
+    background-color: white;
 }
