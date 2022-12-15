@@ -24,6 +24,12 @@ body {
     justify-items: center;
 }
 
+.player-names {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .playGrid {
     display: grid;
     grid-template-columns: repeat(3, 100px);

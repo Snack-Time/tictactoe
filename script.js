@@ -1,8 +1,8 @@
 // Query Selectors //
 const cells = document.querySelectorAll(".cell");
 const startScreen = document.querySelector("#start-container");
-const gameScreen = document.querySelector("#game-container")
-const turnIndicator = document.querySelector(".turn-indicator")
+const gameScreen = document.querySelector("#game-container");
+const turnIndicator = document.querySelector(".turn-indicator");
 
 // Modules //
 const gameBoard = (() => {
@@ -11,7 +11,6 @@ const gameBoard = (() => {
     for (i = 0; i < 9; i++){
         playingField.push([""])
     };
-    
     let winnerFound = false;
     let tieCounter = 0;
 
@@ -47,7 +46,7 @@ const gameBoard = (() => {
         cells.forEach(cell => {
             cell.addEventListener('click', () => {
                 console.log("ping");
-                if (cell.hasAttribute("data-mark")){
+                if (cell.hasAttribute("data-mark") || cell.hasAttribute("data-game")){
                     return; 
                 }
                 cell.setAttribute("data-mark", `${currentPlayer.mark}`);
@@ -56,11 +55,11 @@ const gameBoard = (() => {
                 tieCounter++
                 winConditions();
                 if (winnerFound === true) {
-                    alert(`${currentPlayer.name} has won!`);
+                    turnIndicator.innerHTML = `${currentPlayer.name} has won!`;
                     endGame();
                 }
                 else if (tieCounter === 9){
-                    alert("Tie game!");
+                    turnIndicator.innerHTML = `Tie Game!`;
                     endGame();
                 }
                 else {
@@ -86,19 +85,31 @@ const gameBoard = (() => {
         for (i = 0; i < 9; i++){
             playingField.push([""])
         };;
+        cells.forEach(cell => {
+            cell.setAttribute("data-game","over");
+        });
         return playingField;
     };
 
     const refreshBoard = () => {
+        endGame();
         cells.forEach(cell => {
             cell.removeAttribute("data-mark");
-            cell.removeAttribute("style");
+            cell.removeAttribute("style")
+            cell.removeAttribute("data-game");
         });
         currentPlayer = playerUno;
         turnIndicator.innerHTML = `It is ${currentPlayer.name}'s turn!`;
     };
 
-    return {newGame, gameBoardClick, winConditions, refreshBoard}
+    const nameGrab = () => {
+        const nameOne = document.getElementById("nameOne").value;
+        const nameTwo = document.getElementById("nameTwo").value;
+        playerUno = player(nameOne, "X", "#2a9d8f")
+        playerDos = player(nameTwo, "O", "#f4a261");
+    }
+
+    return {newGame, gameBoardClick, winConditions, refreshBoard, nameGrab}
     
 })();
 
@@ -107,6 +118,7 @@ const gameBoard = (() => {
 const newGame = () => {
     startScreen.style.display = "none";
     gameScreen.style.display = "grid";
+    gameBoard.nameGrab();
     gameBoard.newGame();
     gameBoard.gameBoardClick();
     turnIndicator.innerHTML = `It is ${currentPlayer.name}'s turn!`;
@@ -119,7 +131,6 @@ const newBoard = () => {
 // Factories //
 
 const player = (name, mark, color) => {
-    console.log(`${name} is playing with ${mark}'s!`);
     return {name, mark, color};
 }
 

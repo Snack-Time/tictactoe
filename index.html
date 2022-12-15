@@ -11,6 +11,12 @@
     <div id="start-container" class="container">
         <h1>Tic-Tac-Toe</h1>
         <h2>By William McNally</h2>
+        <form class="player-names">
+            <label>Player 1 (goes first):</label>
+            <input type="text" id="nameOne">
+            <label>Player 2 (goes second):</label>
+            <input type="text" id="nameTwo">
+        </form>
         <button class="coolBtn" onclick="newGame()">Run Game</button>
     </div>
 
@@ -27,7 +33,7 @@
             <div class="cell" data-cell="7"></div>
             <div class="cell" data-cell="8"></div>
         </div>
-        <button class="coolBtn" onclick="newBoard()">Refresh</button>
+        <button class="coolBtn" onclick="newBoard()">New Game</button>
     </div>
 </body>
 <script src="script.js"></script>
