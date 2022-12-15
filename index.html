@@ -8,8 +8,14 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>tic tac toe lol</h1>
+    <div id="start-container" class="container">
+        <h1>Tic-Tac-Toe</h1>
+        <h2>By William McNally</h2>
+        <button class="coolBtn" onclick="newGame()">Run Game</button>
+    </div>
+
+    <div id="game-container" class="container">
+        <h1 class="turn-indicator"></h1>
         <div class="playGrid">
             <div class="cell" data-cell="0"></div>
             <div class="cell" data-cell="1"></div>
@@ -21,8 +27,7 @@
             <div class="cell" data-cell="7"></div>
             <div class="cell" data-cell="8"></div>
         </div>
-        <button onclick="newGame()">Run Game</button>
-        <button onclick="newBoard()">Refresh</button>
+        <button class="coolBtn" onclick="newBoard()">Refresh</button>
     </div>
 </body>
 <script src="script.js"></script>

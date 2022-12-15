@@ -1,5 +1,8 @@
 // Query Selectors //
 const cells = document.querySelectorAll(".cell");
+const startScreen = document.querySelector("#start-container");
+const gameScreen = document.querySelector("#game-container")
+const turnIndicator = document.querySelector(".turn-indicator")
 
 // Modules //
 const gameBoard = (() => {
@@ -45,7 +48,7 @@ const gameBoard = (() => {
             cell.addEventListener('click', () => {
                 console.log("ping");
                 if (cell.hasAttribute("data-mark")){
-                    return;
+                    return; 
                 }
                 cell.setAttribute("data-mark", `${currentPlayer.mark}`);
                 cell.setAttribute("style", `background-color: ${currentPlayer.color}`)
@@ -73,7 +76,7 @@ const gameBoard = (() => {
         } else {
             currentPlayer = playerUno;
         };
-        console.log(`It is ${currentPlayer.name}'s turn.`);
+        turnIndicator.innerHTML = `It is ${currentPlayer.name}'s turn!`;
     }
 
     const endGame = () => {
@@ -92,6 +95,7 @@ const gameBoard = (() => {
             cell.removeAttribute("style");
         });
         currentPlayer = playerUno;
+        turnIndicator.innerHTML = `It is ${currentPlayer.name}'s turn!`;
     };
 
     return {newGame, gameBoardClick, winConditions, refreshBoard}
@@ -101,8 +105,11 @@ const gameBoard = (() => {
 // Buttons //
 
 const newGame = () => {
+    startScreen.style.display = "none";
+    gameScreen.style.display = "grid";
     gameBoard.newGame();
     gameBoard.gameBoardClick();
+    turnIndicator.innerHTML = `It is ${currentPlayer.name}'s turn!`;
 };
 
 const newBoard = () => {
